@@ -6,9 +6,9 @@ extends MeshInstance3D
 ## the sprite. It is inspired by [Sprite3D], so many of its properties behave similarly.
 
 
-const Quad = preload("./scripts/quad.gd")
-const Frame = preload("./scripts/frame.gd")
-const GreedyAlgorithm = preload("./scripts/greedy_algorithm.gd")
+const Quad := preload("./scripts/quad.gd")
+const Frame := preload("./scripts/frame.gd")
+const GreedyAlgorithm := preload("./scripts/greedy_algorithm.gd")
 
 ## [Texture2D] object to draw.
 @export var texture: Texture2D: set = set_texture
@@ -134,7 +134,7 @@ func _generate_meshes() -> Array[ArrayMesh]:
 	for frame in _get_frames():
 		algorithm.image = frame.image
 
-		var quads = algorithm.generate_quads()
+		var quads := algorithm.generate_quads()
 
 		st.begin(Mesh.PRIMITIVE_TRIANGLES)
 
@@ -216,7 +216,7 @@ func _clear_sprite_mesh() -> void:
 	mesh = null
 
 
-func _get_frames() -> Array:
+func _get_frames() -> Array[Frame]:
 	var image := texture.get_image()
 	image.decompress()
 	if region_enabled:
@@ -225,7 +225,7 @@ func _get_frames() -> Array:
 	var frame_offset := region_rect.position if region_enabled else Vector2i.ZERO
 	var frame_size := Vector2i(image.get_width() / hframes, image.get_height() / vframes)
 
-	var frames: Array = []
+	var frames: Array[Frame] = []
 
 	for i in range(vframes):
 		for j in range(hframes):
