@@ -1,7 +1,7 @@
 extends RefCounted
 
 
-const Quad = preload("./quad.gd")
+const Quad := preload("./quad.gd")
 
 var vertices: Array[Vector3] = [Vector3.ZERO, Vector3.ZERO, Vector3.ZERO, Vector3.ZERO]:
 	set = set_vertices

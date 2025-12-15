@@ -1,7 +1,7 @@
 extends RefCounted
 
 
-const Quad = preload("./quad.gd")
+const Quad := preload("./quad.gd")
 
 var image: Image
 var show_side_quads := true
@@ -22,13 +22,13 @@ func set_uv_correction(new_uv_correction: float) -> void:
 	uv_correction = new_uv_correction
 
 
-func generate_quads() -> Array:
-	var quads = []
+func generate_quads() -> Array[Quad]:
+	var quads: Array[Quad] = []
 
 	quads.append_array(_generate_front_quads())
 
 	if show_back_quads:
-		var back_quads = []
+		var back_quads: Array[Quad] = []
 		for quad in quads:
 			back_quads.append(quad.get_back_face().translate(Vector3.FORWARD))
 
@@ -40,8 +40,8 @@ func generate_quads() -> Array:
 	return quads
 
 
-func _generate_front_quads() -> Array:
-	var quads: Array = []
+func _generate_front_quads() -> Array[Quad]:
+	var quads: Array[Quad] = []
 
 	var pixels_to_render := _get_visible_pixels()
 
@@ -80,8 +80,8 @@ func _get_front_quad_rect_at(x0: int, y0: int, pixels_to_render: BitMap) -> Rect
 	return rect
 
 
-func _generate_side_quads() -> Array:
-	var quads = []
+func _generate_side_quads() -> Array[Quad]:
+	var quads: Array[Quad] = []
 	var visible_pixels := _get_visible_pixels()
 
 	quads.append_array(_generate_left_quads(visible_pixels))
@@ -92,7 +92,7 @@ func _generate_side_quads() -> Array:
 	return quads
 
 
-func _generate_left_quads(visible_pixels: BitMap) -> Array:
+func _generate_left_quads(visible_pixels: BitMap) -> Array[Quad]:
 	return _generate_vertical_quads(
 		visible_pixels,
 		func (x: int, y: int) -> bool:
@@ -104,7 +104,7 @@ func _generate_left_quads(visible_pixels: BitMap) -> Array:
 	)
 
 
-func _generate_right_quads(visible_pixels: BitMap) -> Array:
+func _generate_right_quads(visible_pixels: BitMap) -> Array[Quad]:
 	var width := visible_pixels.get_size().x
 
 	return _generate_vertical_quads(
@@ -118,7 +118,7 @@ func _generate_right_quads(visible_pixels: BitMap) -> Array:
 	)
 
 
-func _generate_top_quads(visible_pixels: BitMap) -> Array:
+func _generate_top_quads(visible_pixels: BitMap) -> Array[Quad]:
 	return _generate_horizontal_quads(
 		visible_pixels,
 		func (x: int, y: int) -> bool:
@@ -130,7 +130,7 @@ func _generate_top_quads(visible_pixels: BitMap) -> Array:
 	)
 
 
-func _generate_bottom_quads(visible_pixels: BitMap) -> Array:
+func _generate_bottom_quads(visible_pixels: BitMap) -> Array[Quad]:
 	var height := visible_pixels.get_size().y
 
 	return _generate_horizontal_quads(
@@ -148,9 +148,9 @@ func _generate_vertical_quads(
 	visible_pixels: BitMap,
 	side_visible: Callable,
 	create_quad: Callable
-) -> Array:
+) -> Array[Quad]:
 
-	var quads = []
+	var quads: Array[Quad] = []
 
 	var rendering_quad := false
 	var y0: float
@@ -176,9 +176,9 @@ func _generate_horizontal_quads(
 	visible_pixels: BitMap,
 	side_visible: Callable,
 	create_quad: Callable
-) -> Array:
+) -> Array[Quad]:
 
-	var quads = []
+	var quads: Array[Quad] = []
 
 	var rendering_quad := false
 	var x0: float
@@ -200,7 +200,7 @@ func _generate_horizontal_quads(
 	return quads
 
 
-func _generate_front_quad(rect: Rect2i):
+func _generate_front_quad(rect: Rect2i) -> Quad:
 	assert(_is_inside_image(rect))
 
 	return Quad.new([
@@ -235,6 +235,6 @@ func _is_inside_image(rect: Rect2i) -> bool:
 
 
 func _get_visible_pixels() -> BitMap:
-	var visible_pixels = BitMap.new()
+	var visible_pixels := BitMap.new()
 	visible_pixels.create_from_image_alpha(image, alpha_threshold)
 	return visible_pixels
