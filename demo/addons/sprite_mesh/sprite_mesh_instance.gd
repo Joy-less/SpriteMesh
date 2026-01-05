@@ -62,6 +62,8 @@ const GreedyAlgorithm := preload("./scripts/greedy_algorithm.gd")
 ## This property aims to fix this problem. When its value increases, the UV mapping would move
 ## inwards. Be careful, as it would also produce misalignment.
 @export_range(0, 1) var uv_correction := 0.0: set = set_uv_correction
+## The number of seconds before the editor generates the sprite mesh.
+@export var editor_delay := 1.0
 
 @export_group("Generated SpriteMesh")
 ## The result of the algorithm. It would generate automatically in the editor, or after calling
@@ -104,7 +106,7 @@ func _request_update() -> void:
 	_pending_update = true
 
 	if Engine.is_editor_hint():
-		_seconds_left = 1
+		_seconds_left = editor_delay
 
 
 func _generate_sprite_mesh() -> SpriteMesh:

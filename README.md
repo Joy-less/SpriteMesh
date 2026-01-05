@@ -105,6 +105,7 @@ Array[ArrayMesh] get_meshes()
 | `Rect2` | [`region_rect`](#rect2-region_rect--rect20-0-0-0) | `Rect2(0, 0, 0, 0)` |
 | `Texture2D` | [`texture`](#texture2d-texture) |  |
 | `float` | [`uv_correction`](#float-uv_correction--00) | `0.0` |
+| `float` | [`editor_delay`](#float-editor_delay--10) | `1.0` |
 | `int` | [`vframes`](#int-vframes--1) | `1` |
 
 ### Methods
@@ -286,6 +287,16 @@ This property aims to fix this problem. When its value increases, the UV mapping
 void set_uv_correction(float uv_correction)
 
 float get_uv_correction()
+```
+
+#### `float editor_delay = 1.0`
+
+The number of seconds before the editor generates the sprite mesh.
+
+```gdscript
+void set_editor_delay(float editor_delay)
+
+float get_editor_delay()
 ```
 
 #### `int vframes = 1`
