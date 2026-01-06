@@ -6,9 +6,12 @@ extends MeshInstance3D
 ## the sprite. It is inspired by [Sprite3D], so many of its properties behave similarly.
 
 
-const Quad := preload("./scripts/quad.gd")
-const Frame := preload("./scripts/frame.gd")
-const GreedyAlgorithm := preload("./scripts/greedy_algorithm.gd")
+## Emitted after the sprite mesh is generated.
+signal on_generated_sprite_mesh(sprite_mesh: SpriteMesh);
+
+const Quad = preload("./scripts/quad.gd")
+const Frame = preload("./scripts/frame.gd")
+const GreedyAlgorithm = preload("./scripts/greedy_algorithm.gd")
 
 ## [Texture2D] object to draw.
 @export var texture: Texture2D: set = set_texture
@@ -118,6 +121,8 @@ func _generate_sprite_mesh() -> SpriteMesh:
 
 	sprite_mesh.meshes = _generate_meshes()
 	sprite_mesh.material = _generate_material()
+
+	on_generated_sprite_mesh.emit(sprite_mesh)
 
 	return sprite_mesh
 
